@@ -1,0 +1,35 @@
+from random import randint
+
+def mod_exp(base, exponent, modulus):
+    result = 1
+    base = base % modulus
+    while exponent > 0:
+        if (exponent % 2) == 1:  
+            result = (result * base) % modulus
+        exponent = exponent >> 1 
+        base = (base * base) % modulus  
+    return result
+
+if __name__ == '__main__':
+    
+    P = 23  
+    G = 7  
+    print('The value of P is:', P)
+    print('The value of G is:', G)
+    a = randint(1, P-1)  
+    print('The Private Key a for Alice is:', a)
+    
+   
+    b = randint(1, P-1)  
+    print('The Private Key b for Bob is:', b)
+    
+  
+    print(G , a, P)
+    x = mod_exp(G, a, P)  
+    y = mod_exp(G, b, P)  
+
+    ka = mod_exp(y, a, P) 
+    kb = mod_exp(x, b, P)  
+    
+    print('Secret key for Alice is:', ka)
+    print('Secret key for Bob is:', kb)
